@@ -1,15 +1,26 @@
-package com.lwx.strengthenedittext;
+package com.lwx.imagelabel.ui.widget;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.lwx.imagelabel.App;
+import com.lwx.imagelabel.R;
+
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -29,6 +40,8 @@ public class StrengthenEditText extends RelativeLayout {
 
     private int editTextPadding;
     private int editTextMargin;
+    private float density;
+
     public StrengthenEditText(Context context){
 
         super(context);
@@ -65,13 +78,14 @@ public class StrengthenEditText extends RelativeLayout {
     public void setComponent(List<ImageView> imageViewList){
 
         editText = new EditText(context);
+
         this.imageViewList = imageViewList;
         LayoutParams lp1 =
                 new LayoutParams(
                         LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT);
 
-        editText.setId(R.id.edittext);
+        editText.setId(R.id.edittext_var);
         editText.setLayoutParams(lp1);
         addView(editText);
 
@@ -84,13 +98,13 @@ public class StrengthenEditText extends RelativeLayout {
         switch(length){
 
             case 3:
-                imageViewList.get(2).setId(R.id.imageview3);
+                imageViewList.get(2).setId(R.id.imageview3_var);
 
             case 2:
-                imageViewList.get(1).setId(R.id.imageview2);
+                imageViewList.get(1).setId(R.id.imageview2_var);
 
             case 1:
-                imageViewList.get(0).setId(R.id.imageview1);
+                imageViewList.get(0).setId(R.id.imageview1_var);
                 break;
 
             case 0:
@@ -100,7 +114,7 @@ public class StrengthenEditText extends RelativeLayout {
         LayoutParams lp3 = new LayoutParams(
                 LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT
         );
-        lp3.addRule(RelativeLayout.LEFT_OF,R.id.imageview1);
+        lp3.addRule(RelativeLayout.LEFT_OF, R.id.imageview1_var);
         editText.setLayoutParams(lp3);
         LayoutParams lp2 = new LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT
@@ -135,6 +149,9 @@ public class StrengthenEditText extends RelativeLayout {
             addView(imageViewList.get(i));
         }
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        density = displayMetrics.density;
     }
 
     public void setEditTextOnClickListener(OnClickListener listener){
@@ -171,7 +188,7 @@ public class StrengthenEditText extends RelativeLayout {
 
             Field field = TextView.class.getDeclaredField("mCursorDrawableRes");
             field.setAccessible(true);
-            field.set(editText,R.drawable.cursor_color);
+            field.set(editText, R.drawable.cursor_color);
         }
         catch (NoSuchFieldException e){
 
@@ -206,6 +223,7 @@ public class StrengthenEditText extends RelativeLayout {
 
     public void setComponentPadding(int padding){
 
+        padding = (int)(padding * density);
         this.componentPadding = padding;
         if(imageViewList == null){
 
@@ -228,6 +246,7 @@ public class StrengthenEditText extends RelativeLayout {
 
     public void setComponentMargin(int margin){
 
+        margin = (int)(margin * density);
         this.componentMargin = margin;
 
         if(imageViewList == null){
@@ -259,6 +278,8 @@ public class StrengthenEditText extends RelativeLayout {
     }
 
     public void setEditTextPaddingLeft(int padding){
+
+        padding = (int)(padding * density);
         editTextPadding = padding;
         int r = editText.getPaddingRight();
         int t = editText.getPaddingTop();
@@ -268,6 +289,7 @@ public class StrengthenEditText extends RelativeLayout {
 
     public void setEditTextMaginLeft(int margin){
 
+        margin = (int)(margin * density);
         editTextMargin = margin;
         LayoutParams lp = (LayoutParams)editText.getLayoutParams();
         int r = lp.rightMargin;
@@ -279,5 +301,62 @@ public class StrengthenEditText extends RelativeLayout {
     public void setEditTextInputType(int type){
 
         editText.setInputType(type);
+    }
+
+    public void setInputLength(int num){
+
+        editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(num)});
+    }
+
+    public boolean isEditTextFocused(){
+
+        return editText.isFocused();
+    }
+
+    public void setEditTextOnFocusedChangeListener(OnFocusChangeListener listener){
+
+        editText.setOnFocusChangeListener(listener);
+    }
+
+    public void clearEditTextFocus(){
+
+        editText.clearFocus();
+    }
+
+    public void setRightComponentRightPadding(int padding){
+
+        ImageView imageView = imageViewList.get(imageViewList.size()-1);
+        int l = imageView.getPaddingLeft();
+        int t = imageView.getPaddingTop();
+        int b = imageView.getPaddingBottom();
+        imageView.setPadding(l,t,(int)(padding*density),b);
+    }
+
+    public int getRightComponentRightPadding(){
+
+        return imageViewList.get(imageViewList.size()-1).getPaddingRight();
+    }
+
+    public int getComponentVisibility(int index){
+
+        return imageViewList.get(index).getVisibility();
+    }
+
+    public void setComponentRightPadding(int index,int padding){
+
+        ImageView imageView = imageViewList.get(index);
+        int l = imageView.getPaddingLeft();
+        int t = imageView.getPaddingTop();
+        int b = imageView.getPaddingBottom();
+        imageView.setPadding(l,t,padding,b);
+    }
+    public void setComponentLayoutParam(int index,LayoutParams layoutParams){
+
+        imageViewList.get(index).setLayoutParams(layoutParams);
+    }
+
+    public RelativeLayout.LayoutParams getComponentLayoutParam(int index){
+
+        return (RelativeLayout.LayoutParams)imageViewList.get(index).getLayoutParams();
     }
 }
