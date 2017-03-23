@@ -1,4 +1,4 @@
-package com.lwx.imagelabel.ui.widget;
+package com.lwx.strengthenedittext;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -17,8 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lwx.imagelabel.App;
-import com.lwx.imagelabel.R;
+
 
 import org.w3c.dom.Text;
 
