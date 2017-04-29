@@ -28,9 +28,6 @@ StrengthenEditText是一个非常轻量的控件，本质是继承的RelativeLay
 * 提供接口供用户改变StrengthenEditText内部各个View的属性，比如padding，margin，editText的text等。
 
 
-# PS:下文中的控件API中的Component就是List<ImageView>的意思，例如setComponentVisibility(int index,int visibility);index就是索引号用来获得List中的某个ImageView。
-
-
 # 具体使用：
 
 
