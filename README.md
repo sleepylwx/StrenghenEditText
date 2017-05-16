@@ -4,22 +4,13 @@
 
 
 
-加强的EditText，适用于需要对EditText中的内容进行控制的情况，例如：登录时的用户输入的一键清除，用户输入是否可见的控制，添加对于用户输入的辅助等等
-
-
-控件通过集成一个EditText和若干个ImageView，ImageView负责进行EditText的内容控制，依旧拿登录举例：登录时用户需要点击右方按钮弹出下拉菜单查看以往登录的用户
-或者一键将内容变为不可见，等等需求，都需要在布局中添加一个ImageView进行用户交互，本控件正是将需要用户自己实现的功能集成到一起
+StrengthenEditText是一个非常轻量的控件，适用于需要对EditText中的内容进行控制的情况，例如：登录时的用户输入的一键清除，用户输入是否可见的控制，添加对于用户输入的辅助等等
 
 
 
-StrengthenEditText是一个非常轻量的控件，本质是继承的RelativeLayout，内部只是实例化了一个EditText，ImageView的部分通过一个List<ImageView>来引用，因此需要用户在自己代码中显示书写，
-并通过参数传给控件，这么做的原因是作者希望打造一个通用的控件，若在内部高度实现某些只在特定场景下才应用到的功能便丧失了这一特性。因此控件只提供的给EditText
-和List<Imageview>布局的功能，以及提供对外接口来让用户更改EditText和各个ImageView的各种属性。关于对EditText和List<ImageView>的布局，因为大部分情况下
-都是左边提供输入，在右边提供按钮进行用户对输入的更改，因此本控件对EditText和各个ImageView的布局也采用这种方式
 
 
-
-# 因此StrengthenEditText的功能只有以下几点：
+# StrengthenEditText的功能只有以下几点：
 
 
 * 内部实例化了一个EditText，不需要用户关心它的构造，内部已经将其实现
