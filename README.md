@@ -56,10 +56,6 @@ list.add(...)
 *调用其他配置控件的API，来配置EditText或者各个ImageView的参数
 例如stEditText.setComponentPadding(int )来设置各个ImageView之间的左右Padding，其他API，在使用过程中通过函数名即可明白含义，这里不再描述
 
-# MORE
 
-setDefaultTheme()是将背景设为白色，将EditText的光标设为黑色，这个函数是为了当时方便自己使用而加上的。
-
-代码中可能有些需要修改EditText或者ImageView的某些属性的API没有加上，若在使用中遇到这种情况，欢迎提issue或者fork后提交修改
 
 
